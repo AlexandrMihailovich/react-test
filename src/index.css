@@ -12,3 +12,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.DESC:before {
+  content: "\2193";
+}
+.ASC:before {
+  content: "\2191";
+}
+.data-table span {
+  display: none;
+}
+.data-table .active {
+  display: inline-block;
+}
