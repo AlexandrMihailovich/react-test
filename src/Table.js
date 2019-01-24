@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, ListGroup, ListGroupItem } from 'reactstrap';
 import Filter from './Filter'
 
+
 class SortedTable extends Component {
     constructor(props) {
         super(props);
@@ -11,7 +12,7 @@ class SortedTable extends Component {
             sortBy: null,
             columns: ['id', 'firstName', 'lastName', 'email', 'phone'],
             selected: null
-        }
+        };
         this.filterResult = this.filterResult.bind(this);
         this.sortBy = this.sortBy.bind(this);
         this.compareBy = this.compareBy.bind(this);
@@ -82,7 +83,7 @@ class SortedTable extends Component {
     render() {
         return (
             <div>
-                <Filter data={this.state.data} onComplite={this.filterResult}></Filter>
+                <Filter data={this.state.data} onComplite={this.filterResult} />
                 <Table hover responsive className={'data-table'}>
                     <thead>
                     <tr>

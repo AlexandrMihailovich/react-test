@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SortedTable from './Table'
+import Pagi from './Pagination'
 import './App.css';
 
 
@@ -14,7 +15,7 @@ class App extends Component {
 
   }
   componentDidMount() {
-    const URL = "http://www.filltext.com/?rows=30&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}";
+    const URL = "http://www.filltext.com/?rows=150&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}";
     fetch(URL).then(res => res.json()).then(json => {
       this.setState({
         data: json,
@@ -28,7 +29,8 @@ class App extends Component {
     if (!data) return <div>Loading</div>;
     return (
         <div id="app">
-          <SortedTable data={data} />
+            <SortedTable data={data} />
+            <Pagi count={data.length}/>
         </div>
     );
   }
