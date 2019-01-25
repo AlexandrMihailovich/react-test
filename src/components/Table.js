@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
-import Filter from './Filter'
-import ItemInfo from './ItemInfo'
 
 
 class SortedTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data,
+            //data: props.data,
             sort: 'ASC',
             sortBy: null,
             columns: ['id', 'firstName', 'lastName', 'email', 'phone'],
-            selected: null
+            pos: props.pos
+            //selected: null
         };
-        this.filterResult = this.filterResult.bind(this);
         this.sortBy = this.sortBy.bind(this);
         this.compareBy = this.compareBy.bind(this);
-        this.selectRow = this.selectRow.bind(this);
+        //this.selectRow = this.selectRow.bind(this);
     }
 
     compareBy(key, sort) {
@@ -40,40 +38,37 @@ class SortedTable extends Component {
 
     sortBy(key) {
         let sort = this.state.sort === 'DESC' ? 'ASC' : 'DESC';
-        let arrayCopy = [...this.state.data];
+        let arrayCopy = [...this.props.data];
         arrayCopy.sort(this.compareBy(key, sort));
         this.setState({
-            data: arrayCopy,
+            //data: arrayCopy,
             sort: sort,
             sortBy: key
         });
+        this.props.sorted(arrayCopy);
     }
 
-    componentWillReceiveProps() {
+   //componentWillReceiveProps() {
+   //    this.setState({
+   //        data: this.props.data
+   //    });
+    //    this.setState({
+    //        data: this.props.data.slice(((this.props.match.params.number - 1) * 50), (this.props.match.params.number * 50) )
+    //    });
+        //console.log(this.state.data)
+    //}
 
-        this.setState({
-            data: this.props.data.slice(((this.props.match.params.number - 1) * 50), (this.props.match.params.number * 50) )
-        });
-        console.log(this.state.data)
-    }
-
-    filterResult(data) {
-        this.setState({
-            data: data,
-        });
-    }
-
-    selectRow(index) {
-        this.setState({
-            selected: this.state.data[index],
-        });
-    }
+    //selectRow(index) {
+    //    this.setState({
+    //        selected: this.state.data[index],
+    //    });
+    //}
 
     render() {
         //console.log(this.props)
+        let data = this.props.data;
         return (
             <div>
-                <Filter data={this.state.data} onComplite={this.filterResult} />
                 <Table hover responsive className={'data-table'}>
                     <thead>
                     <tr>
@@ -83,15 +78,14 @@ class SortedTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.data.map((item, index) => (
-                        <tr key={'row-'+index} onClick={() => this.selectRow(index)}>
+                    {data.slice(this.props.pos.from, this.props.pos.to).map((item, index) => (
+                        <tr key={'row-'+index} onClick={() => this.props.select(item)}>
                             {this.state.columns.map((key, index) => (
                                 <th key={'col-'+index}>{item[key]}</th>
                             ))}
                         </tr>))}
                     </tbody>
                 </Table>
-                <ItemInfo item={this.state.selected}/>
             </div>
         );
 

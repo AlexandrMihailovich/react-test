@@ -6,36 +6,27 @@ class Pagi extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: this.props.data,
             itemCount: this.props.count,
-            currentPage: 1,
-            perPage: 50,
-            pageCount: this.props.count / 50
+            currentPage: this.props.current,
+            perPage: 20,
+            pageCount: this.props.count / 20
         };
-        this.selectPage = this.selectPage.bind(this);
-    }
-
-    selectPage(page) {
-
     }
 
     render() {
-        if (this.state.itemCount <= this.state.perPage) return null;
+        console.log(this.props.data)
+        if (this.props.data.length <= this.state.perPage) return null;
         return (
             <div>
                 <Pagination>
-                    <PaginationItem>
-                        <PaginationLink previous href="#" />
-                    </PaginationItem>
-                    {Array(this.state.pageCount).fill(1).map((x, i) =>
-                        (<PaginationItem key={'page-'+i}>
+                    {Array((Math.ceil(this.props.data.length / 20))).fill(1).map((x, i) =>
+                        (<PaginationItem key={'page-'+i} >
                             <Link to={`/large/${i+1}`} className={'page-link'}>
                                 {i+1}
                             </Link>
                         </PaginationItem>)
                     )}
-                    <PaginationItem>
-                        <PaginationLink next href="#" />
-                    </PaginationItem>
                 </Pagination>
             </div>
         );

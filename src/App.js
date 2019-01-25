@@ -21,8 +21,12 @@ class App extends Component {
                 <main>
                     <Switch>
                         <Route exact path='/' component={SelectSize}/>
-                        <Route path='/small' component={Main}/>
-                        <Route path='/large' component={Large}/>
+                        <Route path='/small'
+                               component={Main} />
+                        <Route exact path='/large'
+                               component={Large} />
+                        <Route path='/large/:number'
+                               component={Large} />
                     </Switch>
                 </main>
         </div>
