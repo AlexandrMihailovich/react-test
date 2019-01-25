@@ -55,7 +55,8 @@ class SortedTable extends Component {
 
     render() {
         let data = this.props.data;
-        if(data.length === 0) {
+        let out = data.slice(this.props.pos.from, this.props.pos.to);
+        if(out.length === 0) {
             return (
                 <Alert color="info">
                     Not found!
@@ -71,7 +72,7 @@ class SortedTable extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {data.slice(this.props.pos.from, this.props.pos.to).map((item, index) => (
+                    {out.map((item, index) => (
                         <tr key={'row-'+index} onClick={() => this.props.select(item)}>
                             {this.state.columns.map((key, index) => (
                                 <th key={'col-'+index}>{item[key]}</th>
