@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import {Button, Form, Input, InputGroupAddon, InputGroup} from 'reactstrap';
 
 class Filter extends Component {
+    static defaultProps = {
+        data: [],
+        onComplite: () => {},
+    };
     constructor(props) {
         super(props);
         this.state = {

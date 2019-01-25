@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Table } from 'reactstrap';
+import {Alert, Table} from 'reactstrap';
 
 
 class SortedTable extends Component {
+    static defaultProps = {
+        data: [],
+        pos: {
+            from: 0,
+            to: 50
+        },
+        sorted: () => {},
+        select: () => {}
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -45,6 +55,12 @@ class SortedTable extends Component {
 
     render() {
         let data = this.props.data;
+        if(data.length === 0) {
+            return (
+                <Alert color="info">
+                    Not found!
+                </Alert>);
+        }
         return (
                 <Table hover responsive className={'data-table'}>
                     <thead>
@@ -67,6 +83,5 @@ class SortedTable extends Component {
 
     }
 }
-
 
 export default SortedTable;

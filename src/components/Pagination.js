@@ -3,6 +3,13 @@ import { Pagination, PaginationItem } from 'reactstrap';
 import {Link} from "react-router-dom";
 
 class Pagi extends Component {
+    static defaultProps = {
+        data: [],
+        perPage: 50,
+        current: 1,
+        result: () => {},
+    };
+
     constructor(props) {
         super(props);
         this.state = {

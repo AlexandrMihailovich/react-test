@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import SortedTable from './Table'
 import Pagi from './Pagination'
 import Filter from './Filter'
 import ItemInfo from './ItemInfo'
-
+import Load from './Load'
+import { Alert } from 'reactstrap';
 
 class Main extends Component {
     constructor(props) {
@@ -13,10 +15,13 @@ class Main extends Component {
             work: null,
             value: '',
             selectedItem: null,
-            perPage: 50
+            perPage: 50,
+            error: null,
+            redirect: false
         };
         this.size = 32;
         this.result = this.result.bind(this);
+        this.filterResult = this.filterResult.bind(this);
         this.selectItem = this.selectItem.bind(this);
     }
 
@@ -27,12 +32,27 @@ class Main extends Component {
                 data: json,
                 work: json
             });
-        });
+        }).catch((error) => {
+            this.setState({
+                error: error
+            });
+        } );;
     }
 
     result(data) {
         this.setState({
+            work: data
+        });
+    }
+
+    filterResult(data) {
+        let redirect = false;
+        if(this.props.match.params.number) {
+            redirect = true;
+        }
+        this.setState({
             work: data,
+            redirect: redirect
         });
     }
 
@@ -43,37 +63,37 @@ class Main extends Component {
     }
 
     render() {
-        const data = this.state.work;
-        if (!data) return (
-                <div className={'row align-items-center justify-content-center full-height'}>
-                    <div id="fountainG">
-                        <div id="fountainG_1" className={"fountainG"}></div>
-                        <div id="fountainG_2" className={"fountainG"}></div>
-                        <div id="fountainG_3" className={"fountainG"}></div>
-                        <div id="fountainG_4" className={"fountainG"}></div>
-                        <div id="fountainG_5" className={"fountainG"}></div>
-                        <div id="fountainG_6" className={"fountainG"}></div>
-                        <div id="fountainG_7" className={"fountainG"}></div>
-                        <div id="fountainG_8" className={"fountainG"}></div>
-                    </div>
-                </div>);
+        if (this.state.redirect) {
+            this.setState({
+                redirect: false
+            });
+            return (<Redirect to='/large'/>);
+        }
+        if(this.state.error) return (
+            <div className={'row align-items-center justify-content-center full-height'}>
+                <Alert color="danger">
+                    {this.state.error.toString()}
+                </Alert>
+            </div>);
 
-        let page = !this.props.match.params.number ? 1 : this.props.match.params.number;
-        let pos = {from:(page - 1) * this.state.perPage, to:(page * this.state.perPage)};
+        const data = this.state.work;
+
+        if (!data) return ( <Load/> );
+
+        const page = !this.props.match.params.number ? 1 : this.props.match.params.number;
+        const pos = {from:(page - 1) * this.state.perPage, to:(page * this.state.perPage)};
         return (
                 <div className={'row justify-content-center'}>
                     <div className={'col'}>
                         <Filter data={this.state.data}
-                                onComplite={this.result} />
+                                onComplite={this.filterResult} />
                         <SortedTable data={data}
                              select={this.selectItem}
                              sorted={this.result}
                              pos={pos} />
                         <ItemInfo item={this.state.selectedItem}/>
-                        <Pagi count={this.state.data.length}
-                              data={this.state.work}
+                        <Pagi data={this.state.work}
                               perPage={this.state.perPage}
-                              current={page}
                               result={this.result}/>
                         </div>
                         </div>

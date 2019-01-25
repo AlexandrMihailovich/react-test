@@ -6,15 +6,6 @@ import {ListGroup, ListGroupItem} from "reactstrap";
 class ItemInfo extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            item: this.props.item
-        };
-
-    }
-    componentWillReceiveProps() {
-        this.setState({
-            item: this.props.item
-        });
     }
 
     render() {
