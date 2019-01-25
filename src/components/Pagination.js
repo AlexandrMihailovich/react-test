@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import { Pagination, PaginationItem } from 'reactstrap';
 import {Link} from "react-router-dom";
 
 class Pagi extends Component {
