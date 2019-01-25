@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import {Link} from "react-router-dom";
 
 class Pagi extends Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class Pagi extends Component {
 
     }
 
-
     render() {
         if (this.state.itemCount <= this.state.perPage) return null;
         return (
@@ -28,9 +28,9 @@ class Pagi extends Component {
                     </PaginationItem>
                     {Array(this.state.pageCount).fill(1).map((x, i) =>
                         (<PaginationItem key={'page-'+i}>
-                            <PaginationLink href="#">
+                            <Link to={`/large/${i+1}`} className={'page-link'}>
                                 {i+1}
-                            </PaginationLink>
+                            </Link>
                         </PaginationItem>)
                     )}
                     <PaginationItem>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Table, ListGroup, ListGroupItem } from 'reactstrap';
+import { Table } from 'reactstrap';
 import Filter from './Filter'
+import ItemInfo from './ItemInfo'
 
 
 class SortedTable extends Component {
@@ -48,6 +49,14 @@ class SortedTable extends Component {
         });
     }
 
+    componentWillReceiveProps() {
+
+        this.setState({
+            data: this.props.data.slice(((this.props.match.params.number - 1) * 50), (this.props.match.params.number * 50) )
+        });
+        console.log(this.state.data)
+    }
+
     filterResult(data) {
         this.setState({
             data: data,
@@ -60,27 +69,8 @@ class SortedTable extends Component {
         });
     }
 
-    renderSelected() {
-        if(!this.state.selected) {
-            return null;
-        }
-        return (
-            <ListGroup>
-                <ListGroupItem className="justify-content-between">Выбран пользователь <b>{this.state.selected.firstName} {this.state.selected.lastName}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Описание:
-                    <textarea>
-                    {this.state.selected.description}
-                    </textarea></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Адрес проживания: <b>{this.state.selected.address.city}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Город: <b>{this.state.selected.address.city}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Провинция/штат: <b>{this.state.selected.address.state}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Индекс: <b>{this.state.selected.address.zip}</b></ListGroupItem>
-
-            </ListGroup>
-        )
-    }
-
     render() {
+        //console.log(this.props)
         return (
             <div>
                 <Filter data={this.state.data} onComplite={this.filterResult} />
@@ -101,7 +91,7 @@ class SortedTable extends Component {
                         </tr>))}
                     </tbody>
                 </Table>
-                {this.renderSelected()}
+                <ItemInfo item={this.state.selected}/>
             </div>
         );
 

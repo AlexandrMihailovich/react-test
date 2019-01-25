@@ -1,36 +1,30 @@
 import React, { Component } from 'react';
-import SortedTable from './Table'
-import Pagi from './Pagination'
+import Main from './components/Main'
+import Large from './components/large';
+import SelectSize from './components/SelectSize';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      data: null,
-      value: '',
     };
 
   }
-  componentDidMount() {
-    const URL = "http://www.filltext.com/?rows=150&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}";
-    fetch(URL).then(res => res.json()).then(json => {
-      this.setState({
-        data: json,
-      });
-    });
-  }
-
 
   render() {
-    const data = this.state.data;
-    if (!data) return <div>Loading</div>;
     return (
         <div id="app">
-            <SortedTable data={data} />
-            <Pagi count={data.length}/>
+                <main>
+                    <Switch>
+                        <Route exact path='/' component={SelectSize}/>
+                        <Route path='/small' component={Main}/>
+                        <Route path='/large' component={Large}/>
+                    </Switch>
+                </main>
         </div>
     );
   }
