@@ -18,9 +18,10 @@ class App extends Component {
   render() {
     return (
         <div id="app">
-                <main>
+                <main className={'container'}>
                     <Switch>
-                        <Route exact path='/' component={SelectSize}/>
+                        <Route exact path='/'
+                               component={SelectSize}/>
                         <Route path='/small'
                                component={Main} />
                         <Route exact path='/large'

@@ -6,16 +6,12 @@ class SortedTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //data: props.data,
             sort: 'ASC',
             sortBy: null,
             columns: ['id', 'firstName', 'lastName', 'email', 'phone'],
-            pos: props.pos
-            //selected: null
         };
         this.sortBy = this.sortBy.bind(this);
         this.compareBy = this.compareBy.bind(this);
-        //this.selectRow = this.selectRow.bind(this);
     }
 
     compareBy(key, sort) {
@@ -41,34 +37,15 @@ class SortedTable extends Component {
         let arrayCopy = [...this.props.data];
         arrayCopy.sort(this.compareBy(key, sort));
         this.setState({
-            //data: arrayCopy,
             sort: sort,
             sortBy: key
         });
         this.props.sorted(arrayCopy);
     }
 
-   //componentWillReceiveProps() {
-   //    this.setState({
-   //        data: this.props.data
-   //    });
-    //    this.setState({
-    //        data: this.props.data.slice(((this.props.match.params.number - 1) * 50), (this.props.match.params.number * 50) )
-    //    });
-        //console.log(this.state.data)
-    //}
-
-    //selectRow(index) {
-    //    this.setState({
-    //        selected: this.state.data[index],
-    //    });
-    //}
-
     render() {
-        //console.log(this.props)
         let data = this.props.data;
         return (
-            <div>
                 <Table hover responsive className={'data-table'}>
                     <thead>
                     <tr>
@@ -86,7 +63,6 @@ class SortedTable extends Component {
                         </tr>))}
                     </tbody>
                 </Table>
-            </div>
         );
 
     }

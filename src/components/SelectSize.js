@@ -13,15 +13,14 @@ class SelectSize extends Component {
 
     render() {
         return (
-            <div id="app">
-                <nav>
-                    <ul>
-                        <li><Link to='/'>Home</Link></li>
-                        <li><Link to='/small'>small</Link></li>
-                        <li><Link to='/large'>large</Link></li>
-                    </ul>
-                </nav>
-            </div>
+                <div className={'row align-items-center justify-content-center full-height'}>
+                    <nav className={'col'}>
+                        <ul className={'list-unstyled'}>
+                            <li className={'p-2'}><Link to='/small' className={'btn btn-primary btn-block'}>Мало</Link></li>
+                            <li className={'p-2'}><Link to='/large' className={'btn btn-primary btn-block'}>Много</Link></li>
+                        </ul>
+                    </nav>
+                </div>
         );
     }
 }

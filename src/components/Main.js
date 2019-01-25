@@ -12,10 +12,11 @@ class Main extends Component {
             data: null,
             work: null,
             value: '',
-            selectedItem: null
+            selectedItem: null,
+            perPage: 50
         };
         this.size = 32;
-        this.filterResult = this.filterResult.bind(this);
+        this.result = this.result.bind(this);
         this.selectItem = this.selectItem.bind(this);
     }
 
@@ -29,7 +30,7 @@ class Main extends Component {
         });
     }
 
-    filterResult(data) {
+    result(data) {
         this.setState({
             work: data,
         });
@@ -41,31 +42,41 @@ class Main extends Component {
         });
     }
 
-    componentWillReceiveProps() {
-        //if (!this.state.data) return null;
-       // this.setState({
-       //     work: this.props.data.slice(((this.props.match.params.number - 1) * 50), (this.props.match.params.number * 50) )
-       // });
-    }
-
     render() {
-        //console.log(this.state.work)
         const data = this.state.work;
+        if (!data) return (
+                <div className={'row align-items-center justify-content-center full-height'}>
+                    <div id="fountainG">
+                        <div id="fountainG_1" className={"fountainG"}></div>
+                        <div id="fountainG_2" className={"fountainG"}></div>
+                        <div id="fountainG_3" className={"fountainG"}></div>
+                        <div id="fountainG_4" className={"fountainG"}></div>
+                        <div id="fountainG_5" className={"fountainG"}></div>
+                        <div id="fountainG_6" className={"fountainG"}></div>
+                        <div id="fountainG_7" className={"fountainG"}></div>
+                        <div id="fountainG_8" className={"fountainG"}></div>
+                    </div>
+                </div>);
 
-        if (!data) return <div>Loading</div>;
-        //let tdata = this.state.work.slice(((this.props.match.params.number - 1) * 20), (this.props.match.params.number * 20));
-        let pos = {from:(this.props.match.params.number - 1) * 20, to:(this.props.match.params.number * 20)};
-        console.log(pos)
+        let page = !this.props.match.params.number ? 1 : this.props.match.params.number;
+        let pos = {from:(page - 1) * this.state.perPage, to:(page * this.state.perPage)};
         return (
-            <div>
-                <Filter data={this.state.data} onComplite={this.filterResult} />
-                <SortedTable data={data}
+                <div className={'row justify-content-center'}>
+                    <div className={'col'}>
+                        <Filter data={this.state.data}
+                                onComplite={this.result} />
+                        <SortedTable data={data}
                              select={this.selectItem}
-                             sorted={this.filterResult}
+                             sorted={this.result}
                              pos={pos} />
-                <ItemInfo item={this.state.selectedItem}/>
-                <Pagi count={this.state.data.length} data={this.state.work} current={this.props.match.params.number} result={this.filterResult}/>
-            </div>
+                        <ItemInfo item={this.state.selectedItem}/>
+                        <Pagi count={this.state.data.length}
+                              data={this.state.work}
+                              perPage={this.state.perPage}
+                              current={page}
+                              result={this.result}/>
+                        </div>
+                        </div>
         );
     }
 }

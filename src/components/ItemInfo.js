@@ -19,14 +19,15 @@ class ItemInfo extends Component {
 
     render() {
         if(!this.props.item) return null;
+        let item = this.props.item;
         return (
             <ListGroup>
-                <ListGroupItem className="justify-content-between">Выбран пользователь <b>{this.props.item.firstName} {this.props.item.lastName}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Описание:<textarea>{this.props.item.description}</textarea></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Адрес проживания: <b>{this.props.item.address.city}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Город: <b>{this.props.item.address.city}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Провинция/штат: <b>{this.props.item.address.state}</b></ListGroupItem>
-                <ListGroupItem className="justify-content-between">Индекс: <b>{this.props.item.address.zip}</b></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Выбран пользователь <b>{item.firstName} {item.lastName}</b></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Описание:<textarea>{item.description}</textarea></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Адрес проживания: <b>{item.address.city}</b></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Город: <b>{item.address.city}</b></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Провинция/штат: <b>{item.address.state}</b></ListGroupItem>
+                <ListGroupItem className="justify-content-between">Индекс: <b>{item.address.zip}</b></ListGroupItem>
             </ListGroup>
         )
     }

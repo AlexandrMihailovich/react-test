@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import {Button, Form, Input, InputGroupAddon, InputGroup} from 'reactstrap';
 
 class Filter extends Component {
     constructor(props) {
@@ -39,11 +39,12 @@ class Filter extends Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for="filter">Filter</Label>
+                <InputGroup>
                     <Input type="text" id="filter" value={this.state.value} onChange={this.handleChange} placeholder="Search" />
-                </FormGroup>
-                <Button>Search</Button>
+                    <InputGroupAddon addonType="append">
+                        <Button color="secondary">Search</Button>
+                    </InputGroupAddon>
+                </InputGroup>
             </Form>
         );
 
