@@ -26,7 +26,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        const URL = "www.filltext.com."+this.size+".json";
+        const URL = "http://www.filltext.com."+this.size+"&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}";
         fetch(URL).then(res => res.json()).then(json => {
             this.setState({
                 data: json,
